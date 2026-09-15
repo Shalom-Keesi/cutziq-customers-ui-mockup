@@ -2,344 +2,379 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CutzIQ Customers — UI mockup</title>
-  <meta name="description" content="Clickable UI mockup of the proposed CutzIQ Customers module. Not live software." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --gold: #C8A951;
-      --amber: #E8A317;
-      --cream: #FAF3E0;
-      --charcoal: #1A1A1A;
-      --slate: #2D3436;
-      --sage: #7BAE7F;
-      --paper: #F7F4EE;
-      --white: #FFFFFF;
-      --line: #E8E2D6;
-      --muted: #6B6560;
-      --danger: #B42318;
-      --danger-bg: #FEF3F2;
-      --ok-bg: #ECFDF3;
+      --brand-gold: #C8A951;
+      --brand-amber: #E8A317;
+      --brand-cream: #FAF3E0;
+      --brand-charcoal: #1A1A1A;
+      --brand-slate: #2D3436;
+      --brand-sage: #7BAE7F;
+      --surface: #FFFFFF;
+      --surface-secondary: #F8F7F4;
+      --text-secondary: #636E72;
+      --text-muted: #9CA3AF;
+      --border: #E5E1D8;
+      --amber: #F59E0B;
+      --sidebar-bg: #17130D;
+      --on-ink-text: #F2EDE3;
+      --on-ink-muted: #B7AFA4;
+      --on-ink-hairline: rgba(242,237,227,0.10);
+      --on-ink-hover: rgba(242,237,227,0.06);
+      --on-ink-tint: rgba(245,158,11,0.10);
+      --danger: #B02A25;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; height: 100%; }
     body {
       font-family: "DM Sans", system-ui, sans-serif;
-      background: var(--paper);
-      color: var(--charcoal);
-      font-size: 14px;
+      background: var(--surface-secondary);
+      color: var(--brand-charcoal);
+      -webkit-font-smoothing: antialiased;
     }
-    h1, h2, .display { font-family: "Playfair Display", Georgia, serif; }
-    button { font-family: inherit; cursor: pointer; }
-    .banner {
-      background: var(--charcoal);
-      color: var(--cream);
-      padding: 10px 16px;
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
+    h1, h2, .font-display { font-family: "Playfair Display", Georgia, serif; letter-spacing: -0.02em; }
+    button, input, select, textarea { font-family: inherit; }
+    button { cursor: pointer; }
+    svg { flex-shrink: 0; }
+
+    .proto {
+      position: sticky; top: 0; z-index: 70;
+      background: #17130D; color: #F2EDE3;
+      font-size: 12px; padding: 8px 16px;
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
     }
-    .banner strong { color: var(--gold); }
-    .app {
-      height: calc(100dvh - 42px);
-      display: flex;
-      flex-direction: column;
-      max-width: 1100px;
-      margin: 0 auto;
-      background: var(--paper);
+    .proto b { color: var(--amber); }
+
+    .shell { display: flex; min-height: calc(100dvh - 36px); }
+
+    .sidebar {
+      width: 16rem;
+      background: var(--sidebar-bg);
+      color: var(--on-ink-text);
+      display: flex; flex-direction: column;
+      flex-shrink: 0;
     }
-    .chrome { flex: 0 0 auto; padding: 16px 16px 8px; }
-    .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-    .head h1 { margin: 0; font-size: 28px; }
-    .sub { color: var(--muted); margin-top: 4px; }
-    .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 8px 14px;
-      font-size: 13px;
-      font-weight: 600;
+    .brand {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; border-bottom: 1px solid var(--on-ink-hairline);
     }
-    .btn-gold { background: var(--gold); color: var(--charcoal); }
-    .btn-ghost { background: transparent; border: 1.5px solid var(--line); color: var(--slate); }
-    .btn-danger { background: var(--danger); color: #fff; }
-    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
-    .stat {
-      border: 0;
-      border-radius: 14px;
-      padding: 12px;
-      text-align: left;
-    }
-    .stat .k { font-size: 11px; opacity: .7; }
-    .stat .v { font-size: 24px; font-weight: 700; margin-top: 2px; }
-    .stat .h { font-size: 10px; opacity: .65; margin-top: 2px; }
-    .gold { background: linear-gradient(180deg, #E8D087, #C8A951); color: var(--charcoal); }
-    .amber { background: #F6E3A8; color: #7A4E00; }
-    .pink { background: #F8D7DA; color: #8A1C28; }
-    .sage { background: #D9EBD6; color: #2F5D34; }
-    .stat.on { outline: 2px solid var(--charcoal); outline-offset: 2px; }
-    .toolbar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; position: relative; }
-    .search {
-      flex: 1;
-      min-width: 180px;
-      border: 1.5px solid var(--line);
-      background: #fff;
+    .brand a { font-size: 24px; font-weight: 700; color: var(--on-ink-text); text-decoration: none; }
+    .brand a span { color: var(--amber); }
+    .loc {
+      margin: 12px 12px 0;
+      border: 1px solid var(--on-ink-hairline);
       border-radius: 12px;
       padding: 10px 12px;
-      font-size: 13px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .chip-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1.5px solid var(--line);
-      background: #fff;
-      border-radius: 12px;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    .chip-btn.active { border-color: var(--gold); background: #FBF6E8; color: var(--charcoal); }
-    .menu {
-      position: absolute;
-      top: calc(100% + 6px);
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      min-width: 180px;
-      z-index: 20;
-      overflow: hidden;
-    }
-    .menu button {
-      display: block;
-      width: 100%;
-      text-align: left;
-      border: 0;
-      background: #fff;
-      padding: 10px 14px;
-      font-size: 13px;
-    }
-    .menu button:hover, .menu button.sel { background: var(--cream); }
-    .list-wrap {
-      flex: 1;
-      min-height: 0;
-      overflow: auto;
-      padding: 8px 16px 16px;
+    .loc .av { width: 32px; height: 32px; border-radius: 8px; background: var(--on-ink-tint); color: var(--amber); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+    .tier { padding: 8px 24px; border-bottom: 1px solid var(--on-ink-hairline); text-align: right; }
+    .tier span { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); border: 1px solid rgba(245,158,11,.4); border-radius: 999px; padding: 3px 8px; }
+
+    nav { flex: 1; overflow: auto; padding: 16px 12px; }
+    .nav-item {
       position: relative;
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: 12px;
+      color: var(--on-ink-muted); text-decoration: none;
+      font-size: 14px; font-weight: 500; margin-bottom: 4px;
     }
-    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; }
+    .nav-item:hover { background: var(--on-ink-hover); color: var(--on-ink-text); }
+    .nav-item.active { background: var(--on-ink-tint); color: var(--amber); }
+    .nav-item.active::before {
+      content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 2px;
+      border-radius: 2px; background: var(--amber);
+    }
+
+    .user {
+      border-top: 1px solid var(--on-ink-hairline); padding: 12px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .user .av { width: 32px; height: 32px; border-radius: 50%; background: var(--on-ink-tint); color: var(--amber); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+
+    .main { flex: 1; min-width: 0; display: flex; flex-direction: column; height: calc(100dvh - 36px); }
+    .page { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 24px 28px 0; }
+
+    .page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-shrink: 0; }
+    .page-head h1 { margin: 0; font-size: 30px; font-weight: 700; }
+    .sub { color: var(--text-secondary); margin-top: 4px; font-size: 14px; }
+
+    .btn { border: 0; border-radius: 12px; padding: 8px 16px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-gold { background: linear-gradient(135deg, #C8A951, #E8A317); color: var(--brand-charcoal); }
+    .btn-secondary { background: #fff; color: var(--brand-charcoal); border: 1.5px solid var(--border); }
+    .btn-danger { background: var(--danger); color: #fff; }
+
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 16px; flex-shrink: 0; }
+    .stat { border: 0; border-radius: 16px; padding: 16px; text-align: left; }
+    .stat .k { font-size: 12px; opacity: .75; }
+    .stat .v { font-size: 28px; font-weight: 700; margin-top: 4px; }
+    .stat .h { font-size: 10px; opacity: .65; margin-top: 4px; }
+    .stat.on { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--brand-gold); }
+    .stat-gold { background: linear-gradient(135deg, #C8A951, #E8A317); color: #fff; }
+    .stat-amber { background: linear-gradient(135deg, #E8A317, #F5C842); color: #1A1A1A; }
+    .stat-pink { background: #F8D7DA; color: #8A1C28; }
+    .stat-sage { background: linear-gradient(135deg, #7BAE7F, #A8D5A2); color: #fff; }
+
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; flex-shrink: 0; position: relative; margin-bottom: 12px; }
+    .search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 420px; }
+    .search-wrap svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .search-wrap input {
+      width: 100%; border: 1.5px solid var(--border); background: #fff;
+      border-radius: 12px; padding: 10px 12px 10px 38px; font-size: 14px;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 2px solid var(--border); background: #fff; color: var(--text-secondary);
+      border-radius: 12px; padding: 9px 14px; font-size: 13px; font-weight: 500;
+    }
+    .chip.active { border-color: var(--brand-gold); background: rgba(200,169,81,.08); color: var(--brand-gold); }
+
+    .menu {
+      display: none; position: absolute; top: calc(100% + 6px); left: 0;
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      min-width: 180px; z-index: 20; overflow: hidden;
+    }
+    .menu.open { display: block; }
+    .menu button { display: block; width: 100%; text-align: left; border: 0; background: #fff; padding: 10px 16px; font-size: 13px; }
+    .menu button:hover, .menu button.sel { background: #FAF3E0; font-weight: 600; }
+
+    .list-wrap { flex: 1; min-height: 0; overflow: auto; padding-bottom: 24px; position: relative; }
+    .range { font-size: 13px; color: var(--text-secondary); margin: 0 0 8px; }
+
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 16px; overflow: hidden; }
     th {
-      background: var(--charcoal);
-      color: #fff;
-      font-size: 11px;
-      letter-spacing: .06em;
-      text-align: left;
-      padding: 10px 12px;
-      position: sticky;
-      top: 0;
+      background: linear-gradient(to right, #1A1A1A, #2D3436);
+      color: #fff; font-size: 11px; letter-spacing: .08em; text-align: left;
+      padding: 12px 16px; position: sticky; top: 0; font-weight: 600;
     }
-    td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-    tr:hover td { background: #FBF8F1; }
-    .name { display: flex; align-items: center; gap: 10px; font-weight: 600; }
-    .av {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: #F3E7C0; color: var(--gold); font-size: 11px; font-weight: 700;
-      display: grid; place-items: center;
-    }
-    .tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 999px;
-      margin-right: 4px;
-    }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    tbody tr { cursor: pointer; }
+    tbody tr:hover td { background: #FCFAF5; }
+    .who { display: flex; align-items: center; gap: 12px; font-weight: 500; }
+    .avp { width: 36px; height: 36px; border-radius: 50%; background: rgba(200,169,81,.12); color: var(--brand-gold); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+    .tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin: 1px 2px 1px 0; }
     .t-new { background: #DBEAFE; color: #1D4ED8; }
-    .t-vip { background: #F3E7C0; color: #8A6A12; }
-    .t-reg { background: #DCFCE7; color: #166534; }
+    .t-vip { background: rgba(200,169,81,.18); color: #8A6A12; }
+    .t-reg { background: rgba(123,174,127,.2); color: #166534; }
     .t-risk { background: #FEF3C7; color: #92400E; }
     .t-over { background: #FEE2E2; color: #991B1B; }
     .t-ref { background: #EDE9FE; color: #6D28D9; }
-    .empty {
-      background: #fff;
-      border-radius: 14px;
-      padding: 40px 20px;
-      text-align: center;
-      color: var(--muted);
+    .icon-btn { border: 0; background: transparent; color: var(--text-muted); padding: 6px; border-radius: 8px; }
+    .icon-btn:hover { background: #F3F1EC; color: var(--brand-charcoal); }
+
+    .empty { background: #fff; border-radius: 16px; padding: 48px 24px; text-align: center; color: var(--text-muted); }
+    .empty h2 { margin: 0 0 8px; color: var(--brand-charcoal); font-size: 22px; }
+
+    .filters {
+      display: none;
+      position: absolute; top: 0; right: 0;
+      width: min(560px, 100%);
+      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      padding: 20px; z-index: 12;
     }
+    .filters.open { display: block; }
+
     .overlay {
+      display: none;
       position: fixed; inset: 0;
       background: rgba(0,0,0,.55);
-      z-index: 40;
-      display: flex;
+      z-index: 80;
       align-items: center;
       justify-content: center;
       padding: 16px;
     }
+    .overlay.open { display: flex; }
     .modal {
-      background: #fff;
-      width: min(420px, 100%);
-      max-height: 90dvh;
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
+      background: #fff; width: min(28rem, 100%);
+      max-height: 90dvh; border-radius: 16px;
+      display: flex; flex-direction: column; overflow: hidden;
     }
-    .modal-h, .modal-f { flex: 0 0 auto; padding: 14px 18px; }
-    .modal-h { border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
-    .modal-f { border-top: 1px solid var(--line); background: var(--cream); display: flex; gap: 8px; }
-    .modal-b { flex: 1; min-height: 0; overflow: auto; padding: 16px 18px; }
-    .field { margin-bottom: 12px; }
-    .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .mh, .mf { flex: 0 0 auto; padding: 16px 24px; }
+    .mh { border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .mf { border-top: 1px solid var(--border); background: var(--surface-secondary); display: flex; gap: 12px; }
+    .mb { flex: 1; min-height: 0; overflow: auto; padding: 24px; }
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
     .field input, .field select, .field textarea {
-      width: 100%;
-      border: 1.5px solid var(--line);
-      border-radius: 10px;
-      padding: 9px 10px;
-      font: inherit;
+      width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 14px;
     }
-    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .tag-toggle {
-      border: 1.5px solid transparent;
-      background: #F3F1EC;
-      color: #9A958C;
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
-      font-weight: 700;
-    }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .tag-toggle { border: 2px solid transparent; background: #F3F1EC; color: #9CA3AF; border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 700; }
     .tag-toggle.on { border-color: currentColor; }
+
+    .drawer-scrim { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 75; }
+    .drawer-scrim.open { display: block; }
     .drawer {
-      position: fixed; top: 0; right: 0; bottom: 0;
-      width: min(380px, 100%);
-      background: #fff;
-      z-index: 45;
-      display: flex;
-      flex-direction: column;
+      display: none; position: fixed; top: 0; right: 0; bottom: 0; width: min(400px, 100%);
+      background: #fff; z-index: 76; flex-direction: column;
     }
-    .filters {
-      position: absolute;
-      top: 8px;
-      right: 16px;
-      width: min(520px, calc(100% - 32px));
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 16px;
-      z-index: 15;
-    }
-    .warn { color: var(--danger); font-size: 12px; margin-top: 6px; }
-    .merge-box { background: var(--cream); border-radius: 12px; padding: 12px; margin-top: 8px; }
-    @media (max-width: 720px) {
+    .drawer.open { display: flex; }
+
+    .warn { color: var(--danger); font-size: 13px; margin-top: 6px; }
+    .merge { background: var(--brand-cream); border-radius: 12px; padding: 12px; margin-top: 8px; font-size: 13px; }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
       .cards { grid-template-columns: 1fr 1fr; }
       .hide-sm { display: none; }
-      .app { height: calc(100dvh - 64px); }
     }
   </style>
 </head>
 <body>
-  <div class="banner">
-    <span><strong>UI MOCKUP</strong> — clickable prototype, not the live CutzIQ app. Nothing here saves.</span>
-    <span>Tap cards, Tags, Filters, a row, the pencil, and Delete.</span>
+  <div class="proto">
+    <span><b>UI MOCKUP</b> — replica of admin Customers. Not live CutzIQ. Nothing saves.</span>
+    <span>Click Tags, Filters, a row, the pencil, or Delete.</span>
   </div>
-  <div class="app">
-    <div class="chrome">
-      <div class="head">
+
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="#customers">Cutz<span>IQ</span></a>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B7AFA4" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg>
+      </div>
+      <div class="loc">
+        <div class="av">SC</div>
         <div>
-          <h1>Customers</h1>
-          <div class="sub" id="shopCount">32 customers</div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-ghost" type="button">Import CSV</button>
-          <button class="btn btn-gold" type="button" id="addBtn">+ Add Customer</button>
+          <div style="font-size:13px;font-weight:600">Spice Cuts</div>
+          <div style="font-size:11px;color:var(--on-ink-muted)">Switch location</div>
         </div>
       </div>
-      <div class="cards">
-        <button class="stat gold on" data-seg="" id="cardTotal"><div class="k">Total Customers</div><div class="v" id="totalV">32</div></button>
-        <button class="stat amber" data-seg="atRisk"><div class="k">At Risk</div><div class="v">1</div><div class="h">Need attention</div></button>
-        <button class="stat pink" data-seg="overdue"><div class="k">High value, overdue</div><div class="v">2</div><div class="h">Was “VIPs at Risk”</div></button>
-        <button class="stat sage" data-seg="newMonth"><div class="k">New This Month</div><div class="v">10</div><div class="h">This month</div></button>
+      <div class="tier"><span>Simba</span></div>
+      <nav></nav>
+      <div class="user">
+        <div class="av">AL</div>
+        <div>
+          <div style="font-size:13px;font-weight:500">Alex</div>
+          <div style="font-size:11px;color:var(--on-ink-muted)">Owner</div>
+        </div>
       </div>
-      <div class="toolbar">
-        <input class="search" placeholder="Search by name, phone, or email..." id="search" />
-        <div style="position:relative">
-          <button class="chip-btn" type="button" id="tagsBtn">Tags ▾</button>
-          <div class="menu" id="tagsMenu" hidden>
-            <button type="button" data-tag="">All tags</button>
-            <button type="button" data-tag="VIP">VIP</button>
-            <button type="button" data-tag="Regular">Regular</button>
-            <button type="button" data-tag="New">New</button>
-            <button type="button" data-tag="At Risk">At Risk</button>
-            <button type="button" data-tag="Staff Referral">Staff Referral</button>
+    </aside>
+
+    <div class="main">
+      <div class="page">
+        <div class="page-head">
+          <div>
+            <h1>Customers</h1>
+            <div class="sub" id="shopCount">32 customers</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-secondary" type="button" id="importBtn">Import CSV</button>
+            <button class="btn btn-gold" type="button" id="addBtn">+ Add Customer</button>
           </div>
         </div>
-        <button class="chip-btn" type="button" id="filtersBtn">Filters ▾</button>
+
+        <div class="cards">
+          <button class="stat stat-gold on" type="button" data-seg="" id="cardTotal"><div class="k">Total Customers</div><div class="v" id="totalV">32</div></button>
+          <button class="stat stat-amber" type="button" data-seg="atRisk"><div class="k">At Risk</div><div class="v">1</div><div class="h">Need attention</div></button>
+          <button class="stat stat-pink" type="button" data-seg="overdue"><div class="k">High value, overdue</div><div class="v">2</div><div class="h">Was “VIPs at Risk”</div></button>
+          <button class="stat stat-sage" type="button" data-seg="newMonth"><div class="k">New This Month</div><div class="v">10</div><div class="h">This month</div></button>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input id="search" placeholder="Search by name, phone, or email..." />
+          </div>
+          <div style="position:relative">
+            <button class="chip" type="button" id="tagsBtn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>
+              <span id="tagsLabel">Tags</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="menu" id="tagsMenu">
+              <button type="button" data-tag="">All Tags</button>
+              <button type="button" data-tag="VIP">VIP</button>
+              <button type="button" data-tag="Regular">Regular</button>
+              <button type="button" data-tag="New">New</button>
+              <button type="button" data-tag="At Risk">At Risk</button>
+              <button type="button" data-tag="Staff Referral">Staff Referral</button>
+            </div>
+          </div>
+          <button class="chip" type="button" id="filtersBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18"/><path d="M6 12h12"/><path d="M10 19h4"/></svg>
+            Filters
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+
+        <div class="list-wrap" id="listWrap">
+          <div class="filters" id="filtersPanel">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);margin-bottom:12px">VISITS · SPEND · LAST VISIT</div>
+            <div class="two">
+              <div class="field"><label>Visits</label><input placeholder="Min" /><input placeholder="Max" style="margin-top:6px" /></div>
+              <div class="field"><label>Total Spent (KES)</label><input placeholder="Min" /><input placeholder="Max" style="margin-top:6px" /></div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+              <button class="chip" type="button">Loyal (5+ visits)</button>
+              <button class="chip" type="button">New (0–1 visits)</button>
+              <button class="chip" type="button">High spenders (10K+)</button>
+              <button class="chip" type="button">Inactive (90+ days)</button>
+            </div>
+            <div style="text-align:right;margin-top:12px"><button class="btn btn-secondary" type="button" id="filtersClose">Close</button></div>
+          </div>
+          <p class="range" id="rangeLine"></p>
+          <div id="tableHost"></div>
+        </div>
       </div>
-    </div>
-    <div class="list-wrap" id="listWrap">
-      <div class="filters" id="filtersPanel" hidden>
-        <div style="font-size:12px;font-weight:700;margin-bottom:10px">FILTERS — overlay, list still scrolls underneath</div>
-        <div class="two" style="margin-bottom:10px">
-          <div class="field"><label>Visits</label><input placeholder="Min — Max" /></div>
-          <div class="field"><label>Total spent (KES)</label><input placeholder="Min — Max" /></div>
-        </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button class="chip-btn" type="button">Loyal (5+ visits)</button>
-          <button class="chip-btn" type="button">New (0–1 visits)</button>
-          <button class="chip-btn" type="button">High spenders</button>
-          <button class="chip-btn" type="button">Inactive (90+ days)</button>
-        </div>
-        <div style="margin-top:12px;text-align:right">
-          <button class="btn btn-ghost" type="button" id="filtersClose">Close</button>
-        </div>
-      </div>
-      <p style="font-size:12px;color:var(--muted);margin:0 0 8px" id="rangeLine">Showing 1–8 of 32 customers</p>
-      <div id="tableHost"></div>
     </div>
   </div>
 
-  <div class="overlay" id="modalRoot" hidden></div>
-  <div class="overlay" id="drawerScrim" hidden style="background:rgba(0,0,0,.4)"></div>
-  <div class="drawer" id="drawer" hidden></div>
+  <div class="overlay" id="modalRoot"></div>
+  <div class="drawer-scrim" id="drawerScrim"></div>
+  <aside class="drawer" id="drawer"></aside>
 
 <script>
-const CUSTOMERS = [
-  { id: "k", name: "Kimball", phone: "", visits: 0, spent: 0, last: "Never", since: "15 Sep 2026", badges: ["New"], manual: [] },
-  { id: "p", name: "Polycap", phone: "+254767888888", visits: 0, spent: 0, last: "Never", since: "15 Sep 2026", badges: ["New"], manual: [] },
-  { id: "c", name: "Charlotte", phone: "+254733433443", visits: 0, spent: 0, last: "Never", since: "12 Sep 2026", badges: ["New"], manual: [] },
-  { id: "m", name: "Maria", phone: "+254789111222", visits: 0, spent: 0, last: "Never", since: "10 Sep 2026", badges: ["New"], manual: [] },
-  { id: "la", name: "Linda Akoth", phone: "+254734447992", visits: 0, spent: 0, last: "Never", since: "8 Sep 2026", badges: ["New"], manual: ["Staff Referral"] },
-  { id: "mm", name: "Michelle Marceline", phone: "", visits: 3, spent: 6000, last: "15 Sep 2026", since: "1 Aug 2026", badges: ["Regular"], manual: [] },
-  { id: "tl", name: "Teresa Lisbon", phone: "+254789678876", visits: 3, spent: 7500, last: "15 Sep 2026", since: "15 Sep 2026", badges: ["Regular"], manual: [], keep: true },
-  { id: "tl2", name: "Teresa Lisbon", phone: "", visits: 0, spent: 0, last: "Never", since: "15 Sep 2026", badges: ["New"], manual: [], dup: true },
-  { id: "pj", name: "Patrick Jane", phone: "+254711000111", visits: 8, spent: 24000, last: "12 Aug 2026", since: "3 Jan 2026", badges: ["VIP", "Overdue"], manual: [] },
-  { id: "ak", name: "Amina Kariuki", phone: "+254722000222", visits: 6, spent: 18000, last: "1 Aug 2026", since: "20 Feb 2026", badges: ["VIP", "Overdue"], manual: [] },
-  { id: "jw", name: "James Wanjiku", phone: "+254733000333", visits: 1, spent: 1500, last: "20 Jul 2026", since: "20 Jul 2026", badges: ["At Risk"], manual: [] },
-  { id: "sn", name: "Sarah Njeri", phone: "+254744000444", visits: 7, spent: 21000, last: "14 Sep 2026", since: "4 Mar 2026", badges: ["VIP"], manual: [] },
+const NAV = [
+  ["Dashboard", "M3 9 12 3l9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"],
+  ["Point of Sale", "M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18"],
+  ["Walk-in Queue", "M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"],
+  ["Appointments", "M4 4h16v16H4zM8 2v4M16 2v4M4 10h16"],
+  ["Customers", "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.13a4 4 0 0 1 0 7.75M20 21v-2a4 4 0 0 0-3-3.87"],
+  ["Expenses", "M4 2v20l4-2 4 2 4-2 4 2V2l-4 2-4-2-4 2z"],
+  ["Staff", "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"],
+  ["Services", "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"],
+  ["Products", "M16.5 9.4 7.55 4.24M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"],
+  ["Marketing", "M3 11v3a1 1 0 0 0 1 1h2l4 4V7L6 11H4a1 1 0 0 0-1 1zM15.54 8.46a5 5 0 0 1 0 7.07"],
+  ["Reports", "M3 3v18h18M7 16l4-4 4 4 6-6"],
+  ["Settings", "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83"],
+  ["Billing", "M2 5h20v14H2zM2 10h20"],
 ];
 
-let state = {
-  seg: "",
-  tag: "",
-  search: "",
-  filtersOpen: false,
-  tagsOpen: false,
-  hidden: new Set(),
-};
+(function buildNav() {
+  const nav = document.querySelector("nav");
+  nav.innerHTML = NAV.map(([label, d]) => {
+    const active = label === "Customers";
+    return `<a class="nav-item${active ? " active" : ""}" href="#customers" data-nav="${label}">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="${d}"/></svg>
+      ${label}
+    </a>`;
+  }).join("");
+})();
 
-const tagClass = {
-  New: "t-new", VIP: "t-vip", Regular: "t-reg", "At Risk": "t-risk", Overdue: "t-over", "Staff Referral": "t-ref",
-};
+const CUSTOMERS = [
+  { id: "k", name: "Kimball", phone: "", visits: 0, spent: 0, last: "Never", since: "15 September 2026", badges: ["New"], manual: [] },
+  { id: "p", name: "Polycap", phone: "+254767888888", visits: 0, spent: 0, last: "Never", since: "15 September 2026", badges: ["New"], manual: [] },
+  { id: "c", name: "Charlotte", phone: "+254733433443", visits: 0, spent: 0, last: "Never", since: "12 September 2026", badges: ["New"], manual: [] },
+  { id: "m", name: "Maria", phone: "+254789111222", visits: 0, spent: 0, last: "Never", since: "10 September 2026", badges: ["New"], manual: [] },
+  { id: "la", name: "Linda Akoth", phone: "+254734447992", visits: 0, spent: 0, last: "Never", since: "8 September 2026", badges: ["New"], manual: ["Staff Referral"] },
+  { id: "mm", name: "Michelle Marceline", phone: "", visits: 3, spent: 6000, last: "15 Sept 2026", since: "1 August 2026", badges: ["Regular"], manual: [] },
+  { id: "tl", name: "Teresa Lisbon", phone: "+254789678876", visits: 3, spent: 7500, last: "15 Sept 2026", since: "15 September 2026", badges: ["Regular"], manual: [] },
+  { id: "tl2", name: "Teresa Lisbon", phone: "", visits: 0, spent: 0, last: "Never", since: "15 September 2026", badges: ["New"], manual: [], dup: true },
+  { id: "pj", name: "Patrick Jane", phone: "+254711000111", visits: 8, spent: 24000, last: "12 Aug 2026", since: "3 January 2026", badges: ["VIP", "Overdue"], manual: [] },
+  { id: "ak", name: "Amina Kariuki", phone: "+254722000222", visits: 6, spent: 18000, last: "1 Aug 2026", since: "20 February 2026", badges: ["VIP", "Overdue"], manual: [] },
+  { id: "jw", name: "James Wanjiku", phone: "+254733000333", visits: 1, spent: 1500, last: "20 Jul 2026", since: "20 July 2026", badges: ["At Risk"], manual: [] },
+  { id: "sn", name: "Sarah Njeri", phone: "+254744000444", visits: 7, spent: 21000, last: "14 Sept 2026", since: "4 March 2026", badges: ["VIP"], manual: [] },
+];
 
-function initials(n) {
-  return n.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase();
-}
+const TAG_CLASS = { New: "t-new", VIP: "t-vip", Regular: "t-reg", "At Risk": "t-risk", Overdue: "t-over", "Staff Referral": "t-ref" };
+const state = { seg: "", tag: "", search: "", hidden: new Set() };
+
+function ini(n) { return n.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase(); }
 function tagsOf(c) { return [...c.badges, ...c.manual]; }
 function money(n) { return "Ksh " + n.toLocaleString("en-KE"); }
 
@@ -357,278 +392,249 @@ function visible() {
 
 function renderTable() {
   const rows = visible();
-  const host = document.getElementById("tableHost");
   const shop = CUSTOMERS.filter(c => !state.hidden.has(c.id)).length;
   document.getElementById("shopCount").textContent = shop + " customers";
   document.getElementById("totalV").textContent = shop;
   document.getElementById("rangeLine").textContent = rows.length
-    ? `Showing 1–${rows.length} of ${rows.length} in this view · business total ${shop}`
+    ? `Showing 1–${rows.length} of ${rows.length} in this view · ${shop} in the business`
     : "";
-  document.getElementById("tagsBtn").textContent = (state.tag || "Tags") + " ▾";
+  document.getElementById("tagsLabel").textContent = state.tag || "Tags";
   document.getElementById("tagsBtn").classList.toggle("active", !!state.tag);
-  document.querySelectorAll(".stat").forEach(el => {
-    el.classList.toggle("on", (el.dataset.seg || "") === state.seg);
-  });
+  document.querySelectorAll(".stat").forEach(el => el.classList.toggle("on", (el.dataset.seg || "") === state.seg));
 
+  const host = document.getElementById("tableHost");
   if (!rows.length) {
-    const heading = state.tag
-      ? `No customers with the ${state.tag} tag`
-      : state.seg
-        ? "No customers in this group"
-        : "No customers yet";
+    const heading = state.tag ? `No customers with the ${state.tag} tag` : state.seg ? "No customers in this group" : "No customers yet";
     const body = state.tag
-      ? "Computed badges plus any chips you added. Choose All tags to see everyone."
+      ? "Choose All Tags to see everyone, or open a customer to add this tag."
       : state.seg
-        ? "This group is empty. Tap Total Customers to see everyone."
-        : "Customers are added from POS, walk-ins, or Add Customer.";
-    host.innerHTML = `<div class="empty"><div class="display" style="font-size:22px;color:var(--charcoal)">${heading}</div><p>${body}</p></div>`;
+        ? "This group is empty. Click Total Customers to see everyone."
+        : "Customers are added automatically from POS sales and walk-ins, or add them manually";
+    host.innerHTML = `<div class="empty"><h2>${heading}</h2><p>${body}</p>${!state.tag && !state.seg ? `<button class="btn btn-gold" id="emptyAdd">Add Your First Customer</button>` : ""}</div>`;
     return;
   }
+
+  const pencil = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>`;
+  const trash = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>`;
+
   host.innerHTML = `<table>
     <thead><tr>
-      <th></th><th>CUSTOMER</th><th>CONTACT</th><th>TAGS</th>
-      <th>VISITS</th><th>TOTAL SPENT</th><th class="hide-sm">LAST VISIT</th><th></th>
+      <th style="width:40px"></th><th>CUSTOMER</th><th>CONTACT</th><th>TAGS</th>
+      <th>VISITS</th><th>TOTAL SPENT</th><th class="hide-sm">LAST VISIT</th><th style="text-align:right">ACTIONS</th>
     </tr></thead>
     <tbody>${rows.map(c => `
       <tr data-open="${c.id}">
         <td><input type="checkbox" onclick="event.stopPropagation()" /></td>
-        <td><div class="name"><span class="av">${initials(c.name)}</span>${c.name}${c.dup ? ' <span class="tag t-over">duplicate</span>' : ""}</div></td>
-        <td>${c.phone || '<span style="color:#bbb">No contact info</span>'}</td>
-        <td>${tagsOf(c).map(t => `<span class="tag ${tagClass[t]||""}">${t}</span>`).join("") || "—"}</td>
+        <td><div class="who"><span class="avp">${ini(c.name)}</span>${c.name}${c.dup ? ' <span class="tag t-over">duplicate</span>' : ""}</div></td>
+        <td>${c.phone ? `<span style="color:#636E72">${c.phone}</span>` : '<span style="color:#D1D5DB">No contact info</span>'}</td>
+        <td>${tagsOf(c).map(t => `<span class="tag ${TAG_CLASS[t] || ""}">${t}</span>`).join("") || "—"}</td>
         <td>${c.visits}</td>
-        <td style="color:var(--gold);font-weight:700">${money(c.spent)}</td>
-        <td class="hide-sm">${c.last}</td>
-        <td>
-          <button class="btn btn-ghost" data-edit="${c.id}" style="padding:4px 8px">Edit</button>
-          <button class="btn btn-ghost" data-del="${c.id}" style="padding:4px 8px">Delete</button>
+        <td style="color:var(--brand-gold);font-weight:600">${money(c.spent)}</td>
+        <td class="hide-sm" style="color:#636E72">${c.last}</td>
+        <td style="text-align:right" onclick="event.stopPropagation()">
+          <button class="icon-btn" data-edit="${c.id}" title="Edit">${pencil}</button>
+          <button class="icon-btn" data-del="${c.id}" title="Delete">${trash}</button>
         </td>
       </tr>`).join("")}
     </tbody></table>`;
 }
 
-function closeMenus() {
-  state.tagsOpen = false;
-  document.getElementById("tagsMenu").hidden = true;
-}
-
-function openModal(html) {
+function openOverlay(html) {
   const root = document.getElementById("modalRoot");
-  root.hidden = false;
   root.innerHTML = html;
+  root.classList.add("open");
 }
-function closeModal() {
-  document.getElementById("modalRoot").hidden = true;
-  document.getElementById("modalRoot").innerHTML = "";
+function closeOverlay() {
+  const root = document.getElementById("modalRoot");
+  root.classList.remove("open");
+  root.innerHTML = "";
 }
 
 function editModal(c) {
-  const selected = new Set(c.manual);
   const all = ["VIP", "Regular", "New", "At Risk", "Staff Referral"];
-  openModal(`<div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-h"><span class="display" style="font-size:20px">Edit Customer</span><button class="btn btn-ghost" data-close>✕</button></div>
-    <div class="modal-b">
+  openOverlay(`<div class="modal">
+    <div class="mh"><h2 style="margin:0;font-size:20px">Edit Customer</h2><button class="icon-btn" data-close>×</button></div>
+    <div class="mb">
       <div class="field"><label>Name *</label><input value="${c.name}" /></div>
       <div class="two">
         <div class="field">
           <label>Phone</label>
-          <input id="phoneField" value="${c.phone}" placeholder="+254 7XX XXX XXX" oninput="checkPhone(this.value,'${c.id}')" />
+          <input id="phoneField" value="${c.phone}" placeholder="+254 7XX XXX XXX" />
           <div id="phoneHint"></div>
         </div>
         <div class="field"><label>Email</label><input placeholder="email@example.com" /></div>
       </div>
       <div class="two">
-        <div class="field"><label>Gender</label><select><option>Prefer not to say</option></select></div>
-        <div class="field"><label>Date of Birth</label><input placeholder="mm/dd/yyyy" /></div>
+        <div class="field"><label>Gender</label><select><option>Prefer not to say</option><option>Male</option><option>Female</option></select></div>
+        <div class="field"><label>Date of Birth</label><input type="date" /></div>
       </div>
-      <div class="field"><label>Notes</label><textarea rows="2" placeholder="Style preferences, allergies, etc."></textarea></div>
+      <div class="field"><label>Notes</label><textarea rows="3" placeholder="Style preferences, allergies, etc."></textarea></div>
       <div class="field">
         <label>Tags</label>
-        <div id="tagRow">${all.map(t => `<button type="button" class="tag-toggle ${selected.has(t)||c.badges.includes(t)?"on":""} ${tagClass[t]||""}" data-chip="${t}">${t}</button>`).join(" ")}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px">Computed badges (New, VIP, Regular, At Risk) stay in sync with visits. Staff Referral is manual.</div>
+        <div>${all.map(t => `<button type="button" class="tag-toggle ${c.manual.includes(t) || c.badges.includes(t) ? "on" : ""} ${TAG_CLASS[t] || ""}" data-chip="${t}">${t}</button>`).join(" ")}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:8px">New / VIP / Regular / At Risk follow visits. Staff Referral is manual.</div>
       </div>
-      <div style="background:var(--cream);border-radius:12px;padding:10px;font-size:12px;color:var(--muted)">
-        Visits: <b>${c.visits}</b> · Total spent: <b>${money(c.spent)}</b><br/>Customer since: ${c.since}
+      <div style="background:var(--surface-secondary);border-radius:12px;padding:12px;font-size:13px;color:var(--text-secondary)">
+        Visits: <b style="color:var(--brand-charcoal)">${c.visits}</b><br/>
+        Total spent: <b style="color:var(--brand-gold)">${money(c.spent)}</b><br/>
+        Customer since: <b style="color:var(--brand-charcoal)">${c.since}</b>
       </div>
     </div>
-    <div class="modal-f">
-      <button class="btn btn-ghost" style="flex:1" data-close>Cancel</button>
+    <div class="mf">
+      <button class="btn btn-secondary" style="flex:1" data-close>Cancel</button>
       <button class="btn btn-gold" style="flex:1" data-save="${c.id}">Update</button>
     </div>
   </div>`);
-}
-
-function mergeModal(fromId) {
-  const from = CUSTOMERS.find(c => c.id === fromId);
-  const into = CUSTOMERS.find(c => c.id === "tl");
-  openModal(`<div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-h"><span class="display" style="font-size:20px">Phone already in use</span><button class="btn btn-ghost" data-close>✕</button></div>
-    <div class="modal-b">
-      <p>A customer with this mobile already exists — <b>${into.name}</b>, ${into.visits} visits, ${money(into.spent)}.</p>
-      <div class="merge-box">
-        Merge <b>${from.name}</b> (no phone, ${from.visits} visits) into that record. Appointments and sales move over. This extra row leaves the list.
-      </div>
-    </div>
-    <div class="modal-f" style="flex-wrap:wrap">
-      <button class="btn btn-ghost" data-close>Cancel</button>
-      <button class="btn btn-ghost" data-openrow="${into.id}">Open that customer</button>
-      <button class="btn btn-gold" data-merge="${from.id}">Merge into that one</button>
-    </div>
-  </div>`);
-}
-
-function deleteModal(c) {
-  openModal(`<div class="modal" onclick="event.stopPropagation()" style="max-width:360px">
-    <div class="modal-h"><span class="display" style="font-size:20px">Delete Customer</span></div>
-    <div class="modal-b">
-      This will remove <b>${c.name}</b> from the list. Their visit history is kept. This cannot be undone from the list.
-    </div>
-    <div class="modal-f">
-      <button class="btn btn-ghost" style="flex:1" data-close>Cancel</button>
-      <button class="btn btn-danger" style="flex:1" data-confirm-del="${c.id}">Delete</button>
-    </div>
-  </div>`);
-}
-
-function addModal() {
-  openModal(`<div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-h"><span class="display" style="font-size:20px">Add Customer</span><button class="btn btn-ghost" data-close>✕</button></div>
-    <div class="modal-b">
-      <div class="field"><label>Name *</label><input placeholder="Customer name" /></div>
-      <div class="field"><label>Phone *</label><input placeholder="0712345678 or +254…" />
-        <div style="font-size:11px;color:var(--muted);margin-top:4px">Required to create a customer, same as POS. Name-only bookings stay on the appointment, not this list.</div>
-      </div>
-      <div class="field"><label>Tags</label>
-        <button type="button" class="tag-toggle on t-new">New</button>
-      </div>
-    </div>
-    <div class="modal-f">
-      <button class="btn btn-ghost" style="flex:1" data-close>Cancel</button>
-      <button class="btn btn-gold" style="flex:1" data-close>Add Customer</button>
-    </div>
-  </div>`);
+  const phone = document.getElementById("phoneField");
+  if (phone) phone.addEventListener("input", () => checkPhone(phone.value, c.id));
 }
 
 function checkPhone(value, id) {
   const hint = document.getElementById("phoneHint");
   if (!hint) return;
   const digits = value.replace(/\D/g, "");
-  const taken = CUSTOMERS.find(c => c.id !== id && c.phone && c.phone.replace(/\D/g, "").endsWith(digits.slice(-9)));
+  const taken = CUSTOMERS.find(c => c.id !== id && !state.hidden.has(c.id) && c.phone && c.phone.replace(/\D/g, "").endsWith(digits.slice(-9)));
   if (digits.length >= 9 && taken) {
     hint.innerHTML = `<div class="warn">A customer with this mobile already exists — ${taken.name}, ${taken.visits} visits, ${money(taken.spent)}.</div>
-      <div class="merge-box">
-        <button type="button" class="btn btn-gold" data-merge-offer="${id}">Merge this row into ${taken.name}</button>
-      </div>`;
-  } else {
-    hint.innerHTML = "";
-  }
+      <div class="merge"><button type="button" class="btn btn-gold" data-merge-offer="${id}">Merge this row into ${taken.name}</button></div>`;
+  } else hint.innerHTML = "";
+}
+
+function mergeModal(fromId) {
+  const from = CUSTOMERS.find(c => c.id === fromId);
+  const into = CUSTOMERS.find(c => c.id === "tl");
+  openOverlay(`<div class="modal">
+    <div class="mh"><h2 style="margin:0;font-size:20px">Phone already in use</h2><button class="icon-btn" data-close>×</button></div>
+    <div class="mb">
+      <p>A customer with this mobile already exists — <b>${into.name}</b>, ${into.visits} visits, ${money(into.spent)}.</p>
+      <div class="merge">Merge <b>${from.name}</b> (no phone) into that record. Appointments and sales move over. This extra row leaves the list.</div>
+    </div>
+    <div class="mf" style="flex-wrap:wrap">
+      <button class="btn btn-secondary" data-close>Cancel</button>
+      <button class="btn btn-secondary" data-openrow="${into.id}">Open that customer</button>
+      <button class="btn btn-gold" data-merge="${from.id}">Merge into that one</button>
+    </div>
+  </div>`);
+}
+
+function deleteModal(c) {
+  openOverlay(`<div class="modal" style="max-width:24rem">
+    <div class="mh"><h2 style="margin:0;font-size:20px">Delete Customer</h2></div>
+    <div class="mb">This will permanently remove <b>${c.name}</b> from the list. Their visit history is kept. This cannot be undone.</div>
+    <div class="mf">
+      <button class="btn btn-secondary" style="flex:1" data-close>Cancel</button>
+      <button class="btn btn-danger" style="flex:1" data-confirm-del="${c.id}">Delete</button>
+    </div>
+  </div>`);
+}
+
+function addModal() {
+  openOverlay(`<div class="modal">
+    <div class="mh"><h2 style="margin:0;font-size:20px">Add Customer</h2><button class="icon-btn" data-close>×</button></div>
+    <div class="mb">
+      <div class="field"><label>Name *</label><input placeholder="Customer name" /></div>
+      <div class="field"><label>Phone *</label><input placeholder="0712345678 or email" />
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Required to create a customer. Name-only bookings stay on the appointment, not this list.</div>
+      </div>
+      <div class="field"><label>Tags</label><button type="button" class="tag-toggle on t-new">New</button></div>
+    </div>
+    <div class="mf">
+      <button class="btn btn-secondary" style="flex:1" data-close>Cancel</button>
+      <button class="btn btn-gold" style="flex:1" data-close>Add Customer</button>
+    </div>
+  </div>`);
 }
 
 function openDrawer(c) {
-  document.getElementById("drawerScrim").hidden = false;
+  document.getElementById("drawerScrim").classList.add("open");
   const d = document.getElementById("drawer");
-  d.hidden = false;
+  d.classList.add("open");
   d.innerHTML = `
-    <div class="modal-h"><b>${c.name}</b><button class="btn btn-ghost" data-close-drawer>✕</button></div>
-    <div class="modal-b">
-      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">${c.phone || "No phone"} · ${c.visits} visits · ${money(c.spent)}</div>
-      <div class="field"><label>Tags</label>
-        ${tagsOf(c).map(t => `<span class="tag ${tagClass[t]}">${t}</span>`).join(" ")}
-      </div>
-      <p style="font-size:12px;color:var(--muted)">Same chips as Edit. Tap a row to open this drawer; pencil opens the contained modal.</p>
+    <div class="mh"><h2 style="margin:0;font-size:18px">${c.name}</h2><button class="icon-btn" data-close-drawer>×</button></div>
+    <div class="mb">
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">${c.phone || "No phone"} · ${c.visits} visits · ${money(c.spent)}</div>
+      <div class="field"><label>TAGS</label>${tagsOf(c).map(t => `<span class="tag ${TAG_CLASS[t]}">${t}</span>`).join(" ")}</div>
+      <p style="font-size:13px;color:var(--text-muted)">Same chips as Edit. Click the row for this drawer; the pencil opens the contained modal.</p>
     </div>`;
 }
 function closeDrawer() {
-  document.getElementById("drawer").hidden = true;
-  document.getElementById("drawerScrim").hidden = true;
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("drawerScrim").classList.remove("open");
 }
 
-document.getElementById("tagsBtn").onclick = (e) => {
+document.getElementById("tagsBtn").addEventListener("click", (e) => {
   e.stopPropagation();
-  state.tagsOpen = !state.tagsOpen;
-  document.getElementById("tagsMenu").hidden = !state.tagsOpen;
-};
-document.getElementById("tagsMenu").onclick = (e) => {
-  const t = e.target.dataset.tag;
-  if (t === undefined) return;
-  state.tag = t;
+  document.getElementById("tagsMenu").classList.toggle("open");
+});
+document.getElementById("tagsMenu").addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-tag]");
+  if (!btn) return;
+  state.tag = btn.dataset.tag;
   state.seg = "";
-  closeMenus();
+  document.getElementById("tagsMenu").classList.remove("open");
   renderTable();
-};
+});
 document.querySelectorAll(".stat").forEach(el => {
-  el.onclick = () => {
+  el.addEventListener("click", () => {
     state.seg = el.dataset.seg || "";
     state.tag = "";
-    closeMenus();
+    document.getElementById("tagsMenu").classList.remove("open");
     renderTable();
-  };
+  });
 });
-document.getElementById("filtersBtn").onclick = () => {
-  state.filtersOpen = !state.filtersOpen;
-  document.getElementById("filtersPanel").hidden = !state.filtersOpen;
-  document.getElementById("filtersBtn").classList.toggle("active", state.filtersOpen);
-};
-document.getElementById("filtersClose").onclick = () => {
-  state.filtersOpen = false;
-  document.getElementById("filtersPanel").hidden = true;
+document.getElementById("filtersBtn").addEventListener("click", () => {
+  document.getElementById("filtersPanel").classList.toggle("open");
+  document.getElementById("filtersBtn").classList.toggle("active");
+});
+document.getElementById("filtersClose").addEventListener("click", () => {
+  document.getElementById("filtersPanel").classList.remove("open");
   document.getElementById("filtersBtn").classList.remove("active");
-};
-document.getElementById("search").oninput = (e) => { state.search = e.target.value; renderTable(); };
-document.getElementById("addBtn").onclick = addModal;
+});
+document.getElementById("search").addEventListener("input", (e) => { state.search = e.target.value; renderTable(); });
+document.getElementById("addBtn").addEventListener("click", addModal);
+document.getElementById("importBtn").addEventListener("click", () => {
+  openOverlay(`<div class="modal"><div class="mh"><h2 style="margin:0;font-size:20px">Import CSV</h2><button class="icon-btn" data-close>×</button></div><div class="mb">CSV import is not wired in this mockup.</div><div class="mf"><button class="btn btn-secondary" data-close>Close</button></div></div>`);
+});
 
 document.getElementById("tableHost").addEventListener("click", (e) => {
+  if (e.target.id === "emptyAdd") { addModal(); return; }
   const edit = e.target.closest("[data-edit]");
   const del = e.target.closest("[data-del]");
   const row = e.target.closest("tr[data-open]");
-  if (edit) {
-    e.stopPropagation();
-    const c = CUSTOMERS.find(x => x.id === edit.dataset.edit);
-    editModal(c);
-    return;
-  }
-  if (del) {
-    e.stopPropagation();
-    deleteModal(CUSTOMERS.find(x => x.id === del.dataset.del));
-    return;
-  }
+  if (edit) { editModal(CUSTOMERS.find(x => x.id === edit.dataset.edit)); return; }
+  if (del) { deleteModal(CUSTOMERS.find(x => x.id === del.dataset.del)); return; }
   if (row) openDrawer(CUSTOMERS.find(x => x.id === row.dataset.open));
 });
 
 document.getElementById("modalRoot").addEventListener("click", (e) => {
-  if (e.target.id === "modalRoot" || e.target.dataset.close !== undefined) closeModal();
+  if (e.target.id === "modalRoot" || e.target.closest("[data-close]")) { closeOverlay(); return; }
   const save = e.target.closest("[data-save]");
   if (save) {
     const c = CUSTOMERS.find(x => x.id === save.dataset.save);
     if (c && c.dup) { mergeModal(c.id); return; }
-    closeModal();
+    closeOverlay();
+    return;
   }
   const offer = e.target.closest("[data-merge-offer]");
   if (offer) { mergeModal(offer.dataset.mergeOffer); return; }
   const merge = e.target.closest("[data-merge]");
-  if (merge) {
-    state.hidden.add(merge.dataset.merge);
-    closeModal();
-    renderTable();
-    return;
-  }
+  if (merge) { state.hidden.add(merge.dataset.merge); closeOverlay(); renderTable(); return; }
   const openrow = e.target.closest("[data-openrow]");
-  if (openrow) {
-    closeModal();
-    openDrawer(CUSTOMERS.find(x => x.id === openrow.dataset.openrow));
-  }
+  if (openrow) { closeOverlay(); openDrawer(CUSTOMERS.find(x => x.id === openrow.dataset.openrow)); return; }
   const conf = e.target.closest("[data-confirm-del]");
-  if (conf) {
-    state.hidden.add(conf.dataset.confirmDel);
-    closeModal();
-    renderTable();
-  }
+  if (conf) { state.hidden.add(conf.dataset.confirmDel); closeOverlay(); renderTable(); }
 });
-document.getElementById("drawerScrim").onclick = closeDrawer;
+document.getElementById("drawerScrim").addEventListener("click", closeDrawer);
 document.getElementById("drawer").addEventListener("click", (e) => {
-  if (e.target.dataset.closeDrawer !== undefined) closeDrawer();
+  if (e.target.closest("[data-close-drawer]")) closeDrawer();
 });
 document.addEventListener("click", (e) => {
-  if (!e.target.closest("#tagsBtn") && !e.target.closest("#tagsMenu")) closeMenus();
+  if (!e.target.closest("#tagsBtn") && !e.target.closest("#tagsMenu")) {
+    document.getElementById("tagsMenu").classList.remove("open");
+  }
+});
+document.querySelector("nav").addEventListener("click", (e) => {
+  e.preventDefault();
 });
 
 renderTable();
