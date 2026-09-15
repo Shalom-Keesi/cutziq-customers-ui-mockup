@@ -164,8 +164,9 @@
     .t-risk { background: #FEF3C7; color: #92400E; }
     .t-over { background: #FEE2E2; color: #991B1B; }
     .t-ref { background: #EDE9FE; color: #6D28D9; }
-    .icon-btn { border: 0; background: transparent; color: var(--text-muted); padding: 6px; border-radius: 8px; }
+    .icon-btn { border: 0; background: transparent; color: var(--text-muted); padding: 8px; border-radius: 8px; }
     .icon-btn:hover { background: #F3F1EC; color: var(--brand-charcoal); }
+    .icon-btn svg { pointer-events: none; }
 
     .empty { background: #fff; border-radius: 16px; padding: 48px 24px; text-align: center; color: var(--text-muted); }
     .empty h2 { margin: 0 0 8px; color: var(--brand-charcoal); font-size: 22px; }
@@ -437,9 +438,9 @@ function renderTable() {
         <td>${c.visits}</td>
         <td style="color:var(--brand-gold);font-weight:600">${money(c.spent)}</td>
         <td class="hide-sm" style="color:#636E72">${c.last}</td>
-        <td style="text-align:right" onclick="event.stopPropagation()">
-          <button class="icon-btn" data-edit="${c.id}" title="Edit">${pencil}</button>
-          <button class="icon-btn" data-del="${c.id}" title="Delete">${trash}</button>
+        <td style="text-align:right">
+          <button type="button" class="icon-btn" data-edit="${c.id}" title="Edit">${pencil}</button>
+          <button type="button" class="icon-btn" data-del="${c.id}" title="Delete">${trash}</button>
         </td>
       </tr>`).join("")}
     </tbody></table>`;
