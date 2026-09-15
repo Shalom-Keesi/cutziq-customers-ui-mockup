@@ -211,9 +211,15 @@
     .drawer-scrim.open { display: block; }
     .drawer {
       display: none; position: fixed; top: 0; right: 0; bottom: 0; width: min(400px, 100%);
-      background: #fff; z-index: 76; flex-direction: column;
+      background: #fff; z-index: 76; flex-direction: column; overflow: hidden;
     }
     .drawer.open { display: flex; }
+    .drawer .mh, .drawer .mf { flex: 0 0 auto; }
+    .drawer .mb { flex: 1; min-height: 0; overflow: auto; }
+    .d-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 20px; }
+    .d-stat { border-radius: 12px; padding: 12px; text-align: center; }
+    .d-stat .k { font-size: 11px; color: var(--text-secondary); }
+    .d-stat .v { font-size: 18px; font-weight: 700; margin-top: 2px; }
 
     .warn { color: var(--danger); font-size: 13px; margin-top: 6px; }
     .merge { background: var(--brand-cream); border-radius: 12px; padding: 12px; margin-top: 8px; font-size: 13px; }
@@ -228,7 +234,7 @@
 <body>
   <div class="proto">
     <span><b>UI MOCKUP</b> — replica of admin Customers. Not live CutzIQ. Nothing saves.</span>
-    <span>Click Tags, Filters, a row, the pencil, or Delete.</span>
+    <span>Row = profile drawer. Pencil = Edit drawer. Delete stays a confirm.</span>
   </div>
 
   <div class="shell">
@@ -449,21 +455,30 @@ function closeOverlay() {
   root.classList.remove("open");
   root.innerHTML = "";
 }
+function showDrawer(html) {
+  const d = document.getElementById("drawer");
+  d.innerHTML = html;
+  d.classList.add("open");
+  document.getElementById("drawerScrim").classList.add("open");
+}
+function closeDrawer() {
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("drawer").innerHTML = "";
+  document.getElementById("drawerScrim").classList.remove("open");
+}
 
-function editModal(c) {
+function editDrawer(c) {
   const all = ["VIP", "Regular", "New", "At Risk", "Staff Referral"];
-  openOverlay(`<div class="modal">
-    <div class="mh"><h2 style="margin:0;font-size:20px">Edit Customer</h2><button class="icon-btn" data-close>×</button></div>
+  showDrawer(`
+    <div class="mh"><h2 style="margin:0;font-size:20px">Edit Customer</h2><button class="icon-btn" data-close-drawer>×</button></div>
     <div class="mb">
       <div class="field"><label>Name *</label><input value="${c.name}" /></div>
-      <div class="two">
-        <div class="field">
-          <label>Phone</label>
-          <input id="phoneField" value="${c.phone}" placeholder="+254 7XX XXX XXX" />
-          <div id="phoneHint"></div>
-        </div>
-        <div class="field"><label>Email</label><input placeholder="email@example.com" /></div>
+      <div class="field">
+        <label>Phone</label>
+        <input id="phoneField" value="${c.phone}" placeholder="+254 7XX XXX XXX" />
+        <div id="phoneHint"></div>
       </div>
+      <div class="field"><label>Email</label><input placeholder="email@example.com" /></div>
       <div class="two">
         <div class="field"><label>Gender</label><select><option>Prefer not to say</option><option>Male</option><option>Female</option></select></div>
         <div class="field"><label>Date of Birth</label><input type="date" /></div>
@@ -481,10 +496,9 @@ function editModal(c) {
       </div>
     </div>
     <div class="mf">
-      <button class="btn btn-secondary" style="flex:1" data-close>Cancel</button>
+      <button class="btn btn-secondary" style="flex:1" data-close-drawer>Cancel</button>
       <button class="btn btn-gold" style="flex:1" data-save="${c.id}">Update</button>
-    </div>
-  </div>`);
+    </div>`);
   const phone = document.getElementById("phoneField");
   if (phone) phone.addEventListener("input", () => checkPhone(phone.value, c.id));
 }
@@ -500,21 +514,20 @@ function checkPhone(value, id) {
   } else hint.innerHTML = "";
 }
 
-function mergeModal(fromId) {
+function mergeDrawer(fromId) {
   const from = CUSTOMERS.find(c => c.id === fromId);
   const into = CUSTOMERS.find(c => c.id === "tl");
-  openOverlay(`<div class="modal">
-    <div class="mh"><h2 style="margin:0;font-size:20px">Phone already in use</h2><button class="icon-btn" data-close>×</button></div>
+  showDrawer(`
+    <div class="mh"><h2 style="margin:0;font-size:20px">Phone already in use</h2><button class="icon-btn" data-close-drawer>×</button></div>
     <div class="mb">
       <p>A customer with this mobile already exists — <b>${into.name}</b>, ${into.visits} visits, ${money(into.spent)}.</p>
       <div class="merge">Merge <b>${from.name}</b> (no phone) into that record. Appointments and sales move over. This extra row leaves the list.</div>
     </div>
     <div class="mf" style="flex-wrap:wrap">
-      <button class="btn btn-secondary" data-close>Cancel</button>
+      <button class="btn btn-secondary" data-close-drawer>Cancel</button>
       <button class="btn btn-secondary" data-openrow="${into.id}">Open that customer</button>
       <button class="btn btn-gold" data-merge="${from.id}">Merge into that one</button>
-    </div>
-  </div>`);
+    </div>`);
 }
 
 function deleteModal(c) {
@@ -528,38 +541,66 @@ function deleteModal(c) {
   </div>`);
 }
 
-function addModal() {
-  openOverlay(`<div class="modal">
-    <div class="mh"><h2 style="margin:0;font-size:20px">Add Customer</h2><button class="icon-btn" data-close>×</button></div>
+function addDrawer() {
+  showDrawer(`
+    <div class="mh"><h2 style="margin:0;font-size:20px">Add Customer</h2><button class="icon-btn" data-close-drawer>×</button></div>
     <div class="mb">
       <div class="field"><label>Name *</label><input placeholder="Customer name" /></div>
-      <div class="field"><label>Phone *</label><input placeholder="0712345678 or email" />
+      <div class="field"><label>Phone *</label><input placeholder="0712345678" />
         <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Required to create a customer. Name-only bookings stay on the appointment, not this list.</div>
       </div>
+      <div class="field"><label>Email</label><input placeholder="email@example.com" /></div>
       <div class="field"><label>Tags</label><button type="button" class="tag-toggle on t-new">New</button></div>
     </div>
     <div class="mf">
-      <button class="btn btn-secondary" style="flex:1" data-close>Cancel</button>
-      <button class="btn btn-gold" style="flex:1" data-close>Add Customer</button>
-    </div>
-  </div>`);
+      <button class="btn btn-secondary" style="flex:1" data-close-drawer>Cancel</button>
+      <button class="btn btn-gold" style="flex:1" data-close-drawer>Add Customer</button>
+    </div>`);
 }
 
 function openDrawer(c) {
-  document.getElementById("drawerScrim").classList.add("open");
-  const d = document.getElementById("drawer");
-  d.classList.add("open");
-  d.innerHTML = `
-    <div class="mh"><h2 style="margin:0;font-size:18px">${c.name}</h2><button class="icon-btn" data-close-drawer>×</button></div>
-    <div class="mb">
-      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px">${c.phone || "No phone"} · ${c.visits} visits · ${money(c.spent)}</div>
-      <div class="field"><label>TAGS</label>${tagsOf(c).map(t => `<span class="tag ${TAG_CLASS[t]}">${t}</span>`).join(" ")}</div>
-      <p style="font-size:13px;color:var(--text-muted)">Same chips as Edit. Click the row for this drawer; the pencil opens the contained modal.</p>
-    </div>`;
-}
-function closeDrawer() {
-  document.getElementById("drawer").classList.remove("open");
-  document.getElementById("drawerScrim").classList.remove("open");
+  const avg = c.visits ? money(Math.round(c.spent / c.visits)) : money(0);
+  const visits = c.visits > 0
+    ? `<div style="padding:0 20px 16px"><div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px">VISIT HISTORY</div>
+        <div style="background:#F8F7F4;border-radius:12px;padding:12px;font-size:13px;display:flex;justify-content:space-between"><span>${c.last}</span><b style="color:var(--brand-gold)">${money(c.spent)}</b></div></div>`
+    : `<div style="padding:0 20px 16px;font-size:13px;color:var(--text-muted)">No visit history</div>`;
+  showDrawer(`
+    <div class="mh" style="align-items:flex-start;gap:12px">
+      <div class="avp" style="width:48px;height:48px;font-size:14px">${ini(c.name)}</div>
+      <div style="flex:1;min-width:0">
+        <h2 style="margin:0;font-size:18px">${c.name}</h2>
+        ${c.phone ? `<p style="margin:4px 0 0;font-size:13px;color:var(--text-secondary)">${c.phone}</p>` : ""}
+        <p style="margin:4px 0 0;font-size:12px;color:var(--text-muted)">Customer since ${c.since}</p>
+      </div>
+      <button class="icon-btn" data-close-drawer>×</button>
+    </div>
+    <div class="mb" style="padding:0">
+      <div class="d-stats">
+        <div class="d-stat" style="background:rgba(200,169,81,.08)"><div class="k">Total Spent</div><div class="v" style="color:var(--brand-gold)">${money(c.spent)}</div></div>
+        <div class="d-stat" style="background:rgba(26,26,26,.05)"><div class="k">Visits</div><div class="v">${c.visits}</div></div>
+        <div class="d-stat" style="background:rgba(123,174,127,.12)"><div class="k">Avg Spend</div><div class="v">${avg}</div></div>
+        <div class="d-stat" style="background:rgba(232,163,23,.12)"><div class="k">Last Visit</div><div class="v" style="font-size:14px">${c.last}</div></div>
+      </div>
+      <div style="padding:0 20px 16px">
+        <div style="background:rgba(200,169,81,.1);border:1px solid rgba(200,169,81,.25);border-radius:12px;padding:14px">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px">Loyalty Points</div>
+          <div style="font-size:24px;font-weight:700;color:var(--brand-gold)">${(c.visits * 50).toLocaleString()}</div>
+          <div style="font-size:12px;color:var(--text-muted)">points</div>
+        </div>
+      </div>
+      <div style="padding:0 20px 16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px">TAGS</div>
+        ${tagsOf(c).map(t => `<span class="tag ${TAG_CLASS[t]}">${t}</span>`).join(" ") || '<span style="color:var(--text-muted);font-size:13px">No tags yet</span>'}
+      </div>
+      <div style="padding:0 20px 16px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px">NOTES</div>
+        <textarea rows="3" placeholder="Add notes about this customer..." style="width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px;font:inherit"></textarea>
+      </div>
+      ${visits}
+    </div>
+    <div class="mf">
+      <button class="btn btn-gold" style="flex:1" data-profile-edit="${c.id}">Edit</button>
+    </div>`);
 }
 
 document.getElementById("tagsBtn").addEventListener("click", (e) => {
@@ -591,42 +632,46 @@ document.getElementById("filtersClose").addEventListener("click", () => {
   document.getElementById("filtersBtn").classList.remove("active");
 });
 document.getElementById("search").addEventListener("input", (e) => { state.search = e.target.value; renderTable(); });
-document.getElementById("addBtn").addEventListener("click", addModal);
+document.getElementById("addBtn").addEventListener("click", addDrawer);
 document.getElementById("importBtn").addEventListener("click", () => {
   openOverlay(`<div class="modal"><div class="mh"><h2 style="margin:0;font-size:20px">Import CSV</h2><button class="icon-btn" data-close>×</button></div><div class="mb">CSV import is not wired in this mockup.</div><div class="mf"><button class="btn btn-secondary" data-close>Close</button></div></div>`);
 });
 
 document.getElementById("tableHost").addEventListener("click", (e) => {
-  if (e.target.id === "emptyAdd") { addModal(); return; }
+  if (e.target.id === "emptyAdd") { addDrawer(); return; }
   const edit = e.target.closest("[data-edit]");
   const del = e.target.closest("[data-del]");
   const row = e.target.closest("tr[data-open]");
-  if (edit) { editModal(CUSTOMERS.find(x => x.id === edit.dataset.edit)); return; }
+  if (edit) { editDrawer(CUSTOMERS.find(x => x.id === edit.dataset.edit)); return; }
   if (del) { deleteModal(CUSTOMERS.find(x => x.id === del.dataset.del)); return; }
   if (row) openDrawer(CUSTOMERS.find(x => x.id === row.dataset.open));
 });
 
 document.getElementById("modalRoot").addEventListener("click", (e) => {
   if (e.target.id === "modalRoot" || e.target.closest("[data-close]")) { closeOverlay(); return; }
-  const save = e.target.closest("[data-save]");
-  if (save) {
-    const c = CUSTOMERS.find(x => x.id === save.dataset.save);
-    if (c && c.dup) { mergeModal(c.id); return; }
-    closeOverlay();
-    return;
-  }
-  const offer = e.target.closest("[data-merge-offer]");
-  if (offer) { mergeModal(offer.dataset.mergeOffer); return; }
-  const merge = e.target.closest("[data-merge]");
-  if (merge) { state.hidden.add(merge.dataset.merge); closeOverlay(); renderTable(); return; }
-  const openrow = e.target.closest("[data-openrow]");
-  if (openrow) { closeOverlay(); openDrawer(CUSTOMERS.find(x => x.id === openrow.dataset.openrow)); return; }
   const conf = e.target.closest("[data-confirm-del]");
   if (conf) { state.hidden.add(conf.dataset.confirmDel); closeOverlay(); renderTable(); }
 });
 document.getElementById("drawerScrim").addEventListener("click", closeDrawer);
 document.getElementById("drawer").addEventListener("click", (e) => {
-  if (e.target.closest("[data-close-drawer]")) closeDrawer();
+  if (e.target.closest("[data-close-drawer]")) { closeDrawer(); return; }
+  const profileEdit = e.target.closest("[data-profile-edit]");
+  if (profileEdit) { editDrawer(CUSTOMERS.find(x => x.id === profileEdit.dataset.profileEdit)); return; }
+  const save = e.target.closest("[data-save]");
+  if (save) {
+    const c = CUSTOMERS.find(x => x.id === save.dataset.save);
+    if (c && c.dup) { mergeDrawer(c.id); return; }
+    closeDrawer();
+    return;
+  }
+  const offer = e.target.closest("[data-merge-offer]");
+  if (offer) { mergeDrawer(offer.dataset.mergeOffer); return; }
+  const merge = e.target.closest("[data-merge]");
+  if (merge) { state.hidden.add(merge.dataset.merge); closeDrawer(); renderTable(); return; }
+  const openrow = e.target.closest("[data-openrow]");
+  if (openrow) { openDrawer(CUSTOMERS.find(x => x.id === openrow.dataset.openrow)); return; }
+  const chip = e.target.closest("[data-chip]");
+  if (chip) chip.classList.toggle("on");
 });
 document.addEventListener("click", (e) => {
   if (!e.target.closest("#tagsBtn") && !e.target.closest("#tagsMenu")) {
