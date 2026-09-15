@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CutzIQ Customers — UI mockup</title>
+  <meta name="description" content="Clickable UI mockup of the proposed CutzIQ Customers module. Not live software." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #C8A951;
+      --amber: #E8A317;
+      --cream: #FAF3E0;
+      --charcoal: #1A1A1A;
+      --slate: #2D3436;
+      --sage: #7BAE7F;
+      --paper: #F7F4EE;
+      --white: #FFFFFF;
+      --line: #E8E2D6;
+      --muted: #6B6560;
+      --danger: #B42318;
+      --danger-bg: #FEF3F2;
+      --ok-bg: #ECFDF3;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--charcoal);
+      font-size: 14px;
+    }
+    h1, h2, .display { font-family: "Playfair Display", Georgia, serif; }
+    button { font-family: inherit; cursor: pointer; }
+    .banner {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 10px 16px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .banner strong { color: var(--gold); }
+    .app {
+      height: calc(100dvh - 42px);
+      display: flex;
+      flex-direction: column;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--paper);
+    }
+    .chrome { flex: 0 0 auto; padding: 16px 16px 8px; }
+    .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .head h1 { margin: 0; font-size: 28px; }
+    .sub { color: var(--muted); margin-top: 4px; }
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .btn-gold { background: var(--gold); color: var(--charcoal); }
+    .btn-ghost { background: transparent; border: 1.5px solid var(--line); color: var(--slate); }
+    .btn-danger { background: var(--danger); color: #fff; }
+    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+    .stat {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px;
+      text-align: left;
+    }
+    .stat .k { font-size: 11px; opacity: .7; }
+    .stat .v { font-size: 24px; font-weight: 700; margin-top: 2px; }
+    .stat .h { font-size: 10px; opacity: .65; margin-top: 2px; }
+    .gold { background: linear-gradient(180deg, #E8D087, #C8A951); color: var(--charcoal); }
+    .amber { background: #F6E3A8; color: #7A4E00; }
+    .pink { background: #F8D7DA; color: #8A1C28; }
+    .sage { background: #D9EBD6; color: #2F5D34; }
+    .stat.on { outline: 2px solid var(--charcoal); outline-offset: 2px; }
+    .toolbar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; align-items: center; position: relative; }
+    .search {
+      flex: 1;
+      min-width: 180px;
+      border: 1.5px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    .chip-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1.5px solid var(--line);
+      background: #fff;
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .chip-btn.active { border-color: var(--gold); background: #FBF6E8; color: var(--charcoal); }
+    .menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      min-width: 180px;
+      z-index: 20;
+      overflow: hidden;
+    }
+    .menu button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      background: #fff;
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+    .menu button:hover, .menu button.sel { background: var(--cream); }
+    .list-wrap {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+      padding: 8px 16px 16px;
+      position: relative;
+    }
+    table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; }
+    th {
+      background: var(--charcoal);
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-align: left;
+      padding: 10px 12px;
+      position: sticky;
+      top: 0;
+    }
+    td { padding: 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    tr:hover td { background: #FBF8F1; }
+    .name { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+    .av {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #F3E7C0; color: var(--gold); font-size: 11px; font-weight: 700;
+      display: grid; place-items: center;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-right: 4px;
+    }
+    .t-new { background: #DBEAFE; color: #1D4ED8; }
+    .t-vip { background: #F3E7C0; color: #8A6A12; }
+    .t-reg { background: #DCFCE7; color: #166534; }
+    .t-risk { background: #FEF3C7; color: #92400E; }
+    .t-over { background: #FEE2E2; color: #991B1B; }
+    .t-ref { background: #EDE9FE; color: #6D28D9; }
+    .empty {
+      background: #fff;
+      border-radius: 14px;
+      padding: 40px 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 40;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal {
+      background: #fff;
+      width: min(420px, 100%);
+      max-height: 90dvh;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-h, .modal-f { flex: 0 0 auto; padding: 14px 18px; }
+    .modal-h { border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .modal-f { border-top: 1px solid var(--line); background: var(--cream); display: flex; gap: 8px; }
+    .modal-b { flex: 1; min-height: 0; overflow: auto; padding: 16px 18px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 10px;
+      font: inherit;
+    }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tag-toggle {
+      border: 1.5px solid transparent;
+      background: #F3F1EC;
+      color: #9A958C;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .tag-toggle.on { border-color: currentColor; }
+    .drawer {
+      position: fixed; top: 0; right: 0; bottom: 0;
+      width: min(380px, 100%);
+      background: #fff;
+      z-index: 45;
+      display: flex;
+      flex-direction: column;
+    }
+    .filters {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      width: min(520px, calc(100% - 32px));
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      z-index: 15;
+    }
+    .warn { color: var(--danger); font-size: 12px; margin-top: 6px; }
+    .merge-box { background: var(--cream); border-radius: 12px; padding: 12px; margin-top: 8px; }
+    @media (max-width: 720px) {
+      .cards { grid-template-columns: 1fr 1fr; }
+      .hide-sm { display: none; }
+      .app { height: calc(100dvh - 64px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <span><strong>UI MOCKUP</strong> — clickable prototype, not the live CutzIQ app. Nothing here saves.</span>
+    <span>Tap cards, Tags, Filters, a row, the pencil, and Delete.</span>
+  </div>
+  <div class="app">
+    <div class="chrome">
+      <div class="head">
+        <div>
+          <h1>Customers</h1>
+          <div class="sub" id="shopCount">32 customers</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost" type="button">Import CSV</button>
+          <button class="btn btn-gold" type="button" id="addBtn">+ Add Customer</button>
+        </div>
+      </div>
+      <div class="cards">
+        <button class="stat gold on" data-seg="" id="cardTotal"><div class="k">Total Customers</div><div class="v" id="totalV">32</div></button>
+        <button class="stat amber" data-seg="atRisk"><div class="k">At Risk</div><div class="v">1</div><div class="h">Need attention</div></button>
+        <button class="stat pink" data-seg="overdue"><div class="k">High value, overdue</div><div class="v">2</div><div class="h">Was “VIPs at Risk”</div></button>
+        <button class="stat sage" data-seg="newMonth"><div class="k">New This Month</div><div class="v">10</div><div class="h">This month</div></button>
+      </div>
+      <div class="toolbar">
+        <input class="search" placeholder="Search by name, phone, or email..." id="search" />
+        <div style="position:relative">
+          <button class="chip-btn" type="button" id="tagsBtn">Tags ▾</button>
+          <div class="menu" id="tagsMenu" hidden>
+            <button type="button" data-tag="">All tags</button>
+            <button type="button" data-tag="VIP">VIP</button>
+            <button type="button" data-tag="Regular">Regular</button>
+            <button type="button" data-tag="New">New</button>
+            <button type="button" data-tag="At Risk">At Risk</button>
+            <button type="button" data-tag="Staff Referral">Staff Referral</button>
+          </div>
+        </div>
+        <button class="chip-btn" type="button" id="filtersBtn">Filters ▾</button>
+      </div>
+    </div>
+    <div class="list-wrap" id="listWrap">
+      <div class="filters" id="filtersPanel" hidden>
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px">FILTERS — overlay, list still scrolls underneath</div>
+        <div class="two" style="margin-bottom:10px">
+          <div class="field"><label>Visits</label><input placeholder="Min — Max" /></div>
+          <div class="field"><label>Total spent (KES)</label><input placeholder="Min — Max" /></div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="chip-btn" type="button">Loyal (5+ visits)</button>
+          <button class="chip-btn" type="button">New (0–1 visits)</button>
+          <button class="chip-btn" type="button">High spenders</button>
+          <button class="chip-btn" type="button">Inactive (90+ days)</button>
+        </div>
+        <div style="margin-top:12px;text-align:right">
+          <button class="btn btn-ghost" type="button" id="filtersClose">Close</button>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin:0 0 8px" id="rangeLine">Showing 1–8 of 32 customers</p>
+      <div id="tableHost"></div>
+    </div>
+  </div>
+
+  <div class="overlay" id="modalRoot" hidden></div>
+  <div class="overlay" id="drawerScrim" hidden style="background:rgba(0,0,0,.4)"></div>
+  <div class="drawer" id="drawer" hidden></div>
+
+<script>
+const CUSTOMERS = [
+  { id: "k", name: "Kimball", phone: "", visits: 0, spent: 0, last: "Never", since: "15 Sep 2026", badges: ["New"], manual: [] },
+  { id: "p", name: "Polycap", phone: "+254767888888", visits: 0, spent: 0, last: "Never", since: "15 Sep 2026", badges: ["New"], manual: [] },
+  { id: "c", name: "Charlotte", phone: "+254733433443", visits: 0, spent: 0, last: "Never", since: "12 Sep 2026", badges: ["New"], manual: [] },
+  { id: "m", name: "Maria", phone: "+254789111222", visits: 0, spent: 0, last: "Never", since: "10 Sep 2026", badges: ["New"], manual: [] },
+  { id: "la", name: "Linda Akoth", phone: "+254734447992", visits: 0, spent: 0, last: "Never", since: "8 Sep 2026", badges: ["New"], manual: ["Staff Referral"] },
+  { id: "mm", name: "Michelle Marceline", phone: "", visits: 3, spent: 6000, last: "15 Sep 2026", since: "1 Aug 2026", badges: ["Regular"], manual: [] },
+  { id: "tl", name: "Teresa Lisbon", phone: "+254789678876", visits: 3, spent: 7500, last: "15 Sep 2026", since: "15 Sep 2026", badges: ["Regular"], manual: [], keep: true },
+  { id: "tl2", name: "Teresa Lisbon", phone: "", visits: 0, spent: 0, last: "Never", since: "15 Sep 2026", badges: ["New"], manual: [], dup: true },
+  { id: "pj", name: "Patrick Jane", phone: "+254711000111", visits: 8, spent: 24000, last: "12 Aug 2026", since: "3 Jan 2026", badges: ["VIP", "Overdue"], manual: [] },
+  { id: "ak", name: "Amina Kariuki", phone: "+254722000222", visits: 6, spent: 18000, last: "1 Aug 2026", since: "20 Feb 2026", badges: ["VIP", "Overdue"], manual: [] },
+  { id: "jw", name: "James Wanjiku", phone: "+254733000333", visits: 1, spent: 1500, last: "20 Jul 2026", since: "20 Jul 2026", badges: ["At Risk"], manual: [] },
+  { id: "sn", name: "Sarah Njeri", phone: "+254744000444", visits: 7, spent: 21000, last: "14 Sep 2026", since: "4 Mar 2026", badges: ["VIP"], manual: [] },
+];
+
+let state = {
+  seg: "",
+  tag: "",
+  search: "",
+  filtersOpen: false,
+  tagsOpen: false,
+  hidden: new Set(),
+};
+
+const tagClass = {
+  New: "t-new", VIP: "t-vip", Regular: "t-reg", "At Risk": "t-risk", Overdue: "t-over", "Staff Referral": "t-ref",
+};
+
+function initials(n) {
+  return n.split(" ").map(p => p[0]).join("").slice(0, 2).toUpperCase();
+}
+function tagsOf(c) { return [...c.badges, ...c.manual]; }
+function money(n) { return "Ksh " + n.toLocaleString("en-KE"); }
+
+function visible() {
+  return CUSTOMERS.filter(c => {
+    if (state.hidden.has(c.id)) return false;
+    if (state.search && !(`${c.name} ${c.phone}`.toLowerCase().includes(state.search.toLowerCase()))) return false;
+    if (state.tag && !tagsOf(c).includes(state.tag)) return false;
+    if (state.seg === "atRisk" && !c.badges.includes("At Risk")) return false;
+    if (state.seg === "overdue" && !c.badges.includes("Overdue")) return false;
+    if (state.seg === "newMonth" && !c.badges.includes("New")) return false;
+    return true;
+  });
+}
+
+function renderTable() {
+  const rows = visible();
+  const host = document.getElementById("tableHost");
+  const shop = CUSTOMERS.filter(c => !state.hidden.has(c.id)).length;
+  document.getElementById("shopCount").textContent = shop + " customers";
+  document.getElementById("totalV").textContent = shop;
+  document.getElementById("rangeLine").textContent = rows.length
+    ? `Showing 1–${rows.length} of ${rows.length} in this view · business total ${shop}`
+    : "";
+  document.getElementById("tagsBtn").textContent = (state.tag || "Tags") + " ▾";
+  document.getElementById("tagsBtn").classList.toggle("active", !!state.tag);
+  document.querySelectorAll(".stat").forEach(el => {
+    el.classList.toggle("on", (el.dataset.seg || "") === state.seg);
+  });
+
+  if (!rows.length) {
+    const heading = state.tag
+      ? `No customers with the ${state.tag} tag`
+      : state.seg
+        ? "No customers in this group"
+        : "No customers yet";
+    const body = state.tag
+      ? "Computed badges plus any chips you added. Choose All tags to see everyone."
+      : state.seg
+        ? "This group is empty. Tap Total Customers to see everyone."
+        : "Customers are added from POS, walk-ins, or Add Customer.";
+    host.innerHTML = `<div class="empty"><div class="display" style="font-size:22px;color:var(--charcoal)">${heading}</div><p>${body}</p></div>`;
+    return;
+  }
+  host.innerHTML = `<table>
+    <thead><tr>
+      <th></th><th>CUSTOMER</th><th>CONTACT</th><th>TAGS</th>
+      <th>VISITS</th><th>TOTAL SPENT</th><th class="hide-sm">LAST VISIT</th><th></th>
+    </tr></thead>
+    <tbody>${rows.map(c => `
+      <tr data-open="${c.id}">
+        <td><input type="checkbox" onclick="event.stopPropagation()" /></td>
+        <td><div class="name"><span class="av">${initials(c.name)}</span>${c.name}${c.dup ? ' <span class="tag t-over">duplicate</span>' : ""}</div></td>
+        <td>${c.phone || '<span style="color:#bbb">No contact info</span>'}</td>
+        <td>${tagsOf(c).map(t => `<span class="tag ${tagClass[t]||""}">${t}</span>`).join("") || "—"}</td>
+        <td>${c.visits}</td>
+        <td style="color:var(--gold);font-weight:700">${money(c.spent)}</td>
+        <td class="hide-sm">${c.last}</td>
+        <td>
+          <button class="btn btn-ghost" data-edit="${c.id}" style="padding:4px 8px">Edit</button>
+          <button class="btn btn-ghost" data-del="${c.id}" style="padding:4px 8px">Delete</button>
+        </td>
+      </tr>`).join("")}
+    </tbody></table>`;
+}
+
+function closeMenus() {
+  state.tagsOpen = false;
+  document.getElementById("tagsMenu").hidden = true;
+}
+
+function openModal(html) {
+  const root = document.getElementById("modalRoot");
+  root.hidden = false;
+  root.innerHTML = html;
+}
+function closeModal() {
+  document.getElementById("modalRoot").hidden = true;
+  document.getElementById("modalRoot").innerHTML = "";
+}
+
+function editModal(c) {
+  const selected = new Set(c.manual);
+  const all = ["VIP", "Regular", "New", "At Risk", "Staff Referral"];
+  openModal(`<div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-h"><span class="display" style="font-size:20px">Edit Customer</span><button class="btn btn-ghost" data-close>✕</button></div>
+    <div class="modal-b">
+      <div class="field"><label>Name *</label><input value="${c.name}" /></div>
+      <div class="two">
+        <div class="field">
+          <label>Phone</label>
+          <input id="phoneField" value="${c.phone}" placeholder="+254 7XX XXX XXX" oninput="checkPhone(this.value,'${c.id}')" />
+          <div id="phoneHint"></div>
+        </div>
+        <div class="field"><label>Email</label><input placeholder="email@example.com" /></div>
+      </div>
+      <div class="two">
+        <div class="field"><label>Gender</label><select><option>Prefer not to say</option></select></div>
+        <div class="field"><label>Date of Birth</label><input placeholder="mm/dd/yyyy" /></div>
+      </div>
+      <div class="field"><label>Notes</label><textarea rows="2" placeholder="Style preferences, allergies, etc."></textarea></div>
+      <div class="field">
+        <label>Tags</label>
+        <div id="tagRow">${all.map(t => `<button type="button" class="tag-toggle ${selected.has(t)||c.badges.includes(t)?"on":""} ${tagClass[t]||""}" data-chip="${t}">${t}</button>`).join(" ")}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">Computed badges (New, VIP, Regular, At Risk) stay in sync with visits. Staff Referral is manual.</div>
+      </div>
+      <div style="background:var(--cream);border-radius:12px;padding:10px;font-size:12px;color:var(--muted)">
+        Visits: <b>${c.visits}</b> · Total spent: <b>${money(c.spent)}</b><br/>Customer since: ${c.since}
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn btn-ghost" style="flex:1" data-close>Cancel</button>
+      <button class="btn btn-gold" style="flex:1" data-save="${c.id}">Update</button>
+    </div>
+  </div>`);
+}
+
+function mergeModal(fromId) {
+  const from = CUSTOMERS.find(c => c.id === fromId);
+  const into = CUSTOMERS.find(c => c.id === "tl");
+  openModal(`<div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-h"><span class="display" style="font-size:20px">Phone already in use</span><button class="btn btn-ghost" data-close>✕</button></div>
+    <div class="modal-b">
+      <p>A customer with this mobile already exists — <b>${into.name}</b>, ${into.visits} visits, ${money(into.spent)}.</p>
+      <div class="merge-box">
+        Merge <b>${from.name}</b> (no phone, ${from.visits} visits) into that record. Appointments and sales move over. This extra row leaves the list.
+      </div>
+    </div>
+    <div class="modal-f" style="flex-wrap:wrap">
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-ghost" data-openrow="${into.id}">Open that customer</button>
+      <button class="btn btn-gold" data-merge="${from.id}">Merge into that one</button>
+    </div>
+  </div>`);
+}
+
+function deleteModal(c) {
+  openModal(`<div class="modal" onclick="event.stopPropagation()" style="max-width:360px">
+    <div class="modal-h"><span class="display" style="font-size:20px">Delete Customer</span></div>
+    <div class="modal-b">
+      This will remove <b>${c.name}</b> from the list. Their visit history is kept. This cannot be undone from the list.
+    </div>
+    <div class="modal-f">
+      <button class="btn btn-ghost" style="flex:1" data-close>Cancel</button>
+      <button class="btn btn-danger" style="flex:1" data-confirm-del="${c.id}">Delete</button>
+    </div>
+  </div>`);
+}
+
+function addModal() {
+  openModal(`<div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-h"><span class="display" style="font-size:20px">Add Customer</span><button class="btn btn-ghost" data-close>✕</button></div>
+    <div class="modal-b">
+      <div class="field"><label>Name *</label><input placeholder="Customer name" /></div>
+      <div class="field"><label>Phone *</label><input placeholder="0712345678 or +254…" />
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Required to create a customer, same as POS. Name-only bookings stay on the appointment, not this list.</div>
+      </div>
+      <div class="field"><label>Tags</label>
+        <button type="button" class="tag-toggle on t-new">New</button>
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn btn-ghost" style="flex:1" data-close>Cancel</button>
+      <button class="btn btn-gold" style="flex:1" data-close>Add Customer</button>
+    </div>
+  </div>`);
+}
+
+function checkPhone(value, id) {
+  const hint = document.getElementById("phoneHint");
+  if (!hint) return;
+  const digits = value.replace(/\D/g, "");
+  const taken = CUSTOMERS.find(c => c.id !== id && c.phone && c.phone.replace(/\D/g, "").endsWith(digits.slice(-9)));
+  if (digits.length >= 9 && taken) {
+    hint.innerHTML = `<div class="warn">A customer with this mobile already exists — ${taken.name}, ${taken.visits} visits, ${money(taken.spent)}.</div>
+      <div class="merge-box">
+        <button type="button" class="btn btn-gold" data-merge-offer="${id}">Merge this row into ${taken.name}</button>
+      </div>`;
+  } else {
+    hint.innerHTML = "";
+  }
+}
+
+function openDrawer(c) {
+  document.getElementById("drawerScrim").hidden = false;
+  const d = document.getElementById("drawer");
+  d.hidden = false;
+  d.innerHTML = `
+    <div class="modal-h"><b>${c.name}</b><button class="btn btn-ghost" data-close-drawer>✕</button></div>
+    <div class="modal-b">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">${c.phone || "No phone"} · ${c.visits} visits · ${money(c.spent)}</div>
+      <div class="field"><label>Tags</label>
+        ${tagsOf(c).map(t => `<span class="tag ${tagClass[t]}">${t}</span>`).join(" ")}
+      </div>
+      <p style="font-size:12px;color:var(--muted)">Same chips as Edit. Tap a row to open this drawer; pencil opens the contained modal.</p>
+    </div>`;
+}
+function closeDrawer() {
+  document.getElementById("drawer").hidden = true;
+  document.getElementById("drawerScrim").hidden = true;
+}
+
+document.getElementById("tagsBtn").onclick = (e) => {
+  e.stopPropagation();
+  state.tagsOpen = !state.tagsOpen;
+  document.getElementById("tagsMenu").hidden = !state.tagsOpen;
+};
+document.getElementById("tagsMenu").onclick = (e) => {
+  const t = e.target.dataset.tag;
+  if (t === undefined) return;
+  state.tag = t;
+  state.seg = "";
+  closeMenus();
+  renderTable();
+};
+document.querySelectorAll(".stat").forEach(el => {
+  el.onclick = () => {
+    state.seg = el.dataset.seg || "";
+    state.tag = "";
+    closeMenus();
+    renderTable();
+  };
+});
+document.getElementById("filtersBtn").onclick = () => {
+  state.filtersOpen = !state.filtersOpen;
+  document.getElementById("filtersPanel").hidden = !state.filtersOpen;
+  document.getElementById("filtersBtn").classList.toggle("active", state.filtersOpen);
+};
+document.getElementById("filtersClose").onclick = () => {
+  state.filtersOpen = false;
+  document.getElementById("filtersPanel").hidden = true;
+  document.getElementById("filtersBtn").classList.remove("active");
+};
+document.getElementById("search").oninput = (e) => { state.search = e.target.value; renderTable(); };
+document.getElementById("addBtn").onclick = addModal;
+
+document.getElementById("tableHost").addEventListener("click", (e) => {
+  const edit = e.target.closest("[data-edit]");
+  const del = e.target.closest("[data-del]");
+  const row = e.target.closest("tr[data-open]");
+  if (edit) {
+    e.stopPropagation();
+    const c = CUSTOMERS.find(x => x.id === edit.dataset.edit);
+    editModal(c);
+    return;
+  }
+  if (del) {
+    e.stopPropagation();
+    deleteModal(CUSTOMERS.find(x => x.id === del.dataset.del));
+    return;
+  }
+  if (row) openDrawer(CUSTOMERS.find(x => x.id === row.dataset.open));
+});
+
+document.getElementById("modalRoot").addEventListener("click", (e) => {
+  if (e.target.id === "modalRoot" || e.target.dataset.close !== undefined) closeModal();
+  const save = e.target.closest("[data-save]");
+  if (save) {
+    const c = CUSTOMERS.find(x => x.id === save.dataset.save);
+    if (c && c.dup) { mergeModal(c.id); return; }
+    closeModal();
+  }
+  const offer = e.target.closest("[data-merge-offer]");
+  if (offer) { mergeModal(offer.dataset.mergeOffer); return; }
+  const merge = e.target.closest("[data-merge]");
+  if (merge) {
+    state.hidden.add(merge.dataset.merge);
+    closeModal();
+    renderTable();
+    return;
+  }
+  const openrow = e.target.closest("[data-openrow]");
+  if (openrow) {
+    closeModal();
+    openDrawer(CUSTOMERS.find(x => x.id === openrow.dataset.openrow));
+  }
+  const conf = e.target.closest("[data-confirm-del]");
+  if (conf) {
+    state.hidden.add(conf.dataset.confirmDel);
+    closeModal();
+    renderTable();
+  }
+});
+document.getElementById("drawerScrim").onclick = closeDrawer;
+document.getElementById("drawer").addEventListener("click", (e) => {
+  if (e.target.dataset.closeDrawer !== undefined) closeDrawer();
+});
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#tagsBtn") && !e.target.closest("#tagsMenu")) closeMenus();
+});
+
+renderTable();
+</script>
+</body>
+</html>
